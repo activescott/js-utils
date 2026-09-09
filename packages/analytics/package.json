@@ -1,0 +1,55 @@
+{
+  "name": "@activescott/analytics",
+  "version": "0.1.0",
+  "description": "PostHog analytics integration for React Router apps — provider, SPA pageview tracking, user identification, and reverse proxy helper",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./proxy": {
+      "types": "./dist/proxy.d.ts",
+      "import": "./dist/proxy.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "posthog",
+    "analytics",
+    "react-router",
+    "spa",
+    "pageview",
+    "proxy"
+  ],
+  "author": "Scott Willeke",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/activescott/js-utils.git",
+    "directory": "packages/analytics"
+  },
+  "peerDependencies": {
+    "posthog-js": "^1.200.0",
+    "react": ">=18",
+    "react-router": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19.2.14",
+    "posthog-js": "^1.351.4",
+    "react": "^19.2.4",
+    "react-router": "^7.10.1",
+    "typescript": "^5.9.3",
+    "vitest": "4.1.10"
+  }
+}
