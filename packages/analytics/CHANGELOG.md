@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/activescott/js-utils/compare/analytics@0.3.1...analytics@0.3.2) (2026-09-10)
+
+### Bug Fixes
+
+* mount lazy provider client-only to keep SSR clean ([f05d0a9](https://github.com/activescott/js-utils/commit/f05d0a9f203b8c8d2fcce7fade1683e7fd995a4f))
+
 ## [0.3.1](https://github.com/activescott/js-utils/compare/analytics@0.3.0...analytics@0.3.1) (2026-09-10)
 
 ### Bug Fixes
