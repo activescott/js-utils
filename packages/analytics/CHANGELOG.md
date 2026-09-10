@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/activescott/js-utils/compare/analytics@0.2.0...analytics@0.2.1) (2026-09-10)
+
+### Bug Fixes
+
+* allow childless PostHogProvider for sibling mounting ([e2a2dec](https://github.com/activescott/js-utils/commit/e2a2dec3c4995ae00e1ab97721c193a35c861c19))
+
 ## 0.2.0
 
 - `createPostHogProxy` gains `forwardIp`: when true, the ingress-set
