@@ -20,3 +20,6 @@ publishes to npm with Sigstore provenance (trusted publishing — no tokens).
 
 Commit scopes are limited to `analytics` and `repo` (see `commitlint.config.js`).
 Release mechanics live in `scripts/release.ts` + `.github/workflows/ci.yaml`.
+`@conventional-changelog/git-client` is override-pinned to 2.6.0 (auth's
+known-good version — 2.7.0 breaks with `parseCommits is not a function`
+against `conventional-commits-parser@5`).
