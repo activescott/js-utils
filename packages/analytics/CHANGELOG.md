@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.4](https://github.com/activescott/js-utils/compare/analytics@0.3.3...analytics@0.3.4) (2026-09-10)
+
+### Bug Fixes
+
+* disable click autocapture by default ([091d81e](https://github.com/activescott/js-utils/commit/091d81e75b0027a052b7e18211c03034ad1690e3))
+
 ## [0.3.3](https://github.com/activescott/js-utils/compare/analytics@0.3.2...analytics@0.3.3) (2026-09-10)
 
 ### Bug Fixes
