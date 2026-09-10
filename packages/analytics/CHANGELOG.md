@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/activescott/js-utils/compare/analytics@0.3.0...analytics@0.3.1) (2026-09-10)
+
+### Bug Fixes
+
+* split lazy entry so posthog-js leaves the main chunk ([a96f2d4](https://github.com/activescott/js-utils/commit/a96f2d49c334294fcc24cb66f00b20cb53360510))
+
 ## [0.3.0](https://github.com/activescott/js-utils/compare/analytics@0.2.1...analytics@0.3.0) (2026-09-10)
 
 ### Features
