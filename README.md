@@ -13,7 +13,10 @@ Shared JavaScript utilities as an npm-workspaces monorepo. Each directory under
 ## Versioning
 
 Each package is versioned independently with plain npm versions and git tags of
-the form `<package-name>@<version>` (e.g. `analytics@0.1.0`). No automation yet:
-bump the version in the package's `package.json`, cut the tag by hand. If churn
-justifies it, port the simple-release GitHub-releases+tags workflow from
-`activescott/auth/scripts/release.ts`.
+the form `<package-name>@<version>` (e.g. `analytics@0.2.0`), managed by
+simple-release like `activescott/auth`: conventional commits on `main` drive
+the bump (`feat` → minor, `fix` → patch), CI tags a GitHub release, then
+publishes to npm with Sigstore provenance (trusted publishing — no tokens).
+
+Commit scopes are limited to `analytics` and `repo` (see `commitlint.config.js`).
+Release mechanics live in `scripts/release.ts` + `.github/workflows/ci.yaml`.
