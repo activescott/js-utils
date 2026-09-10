@@ -1,5 +1,8 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## 0.2.0
 
 - `createPostHogProxy` gains `forwardIp`: when true, the ingress-set

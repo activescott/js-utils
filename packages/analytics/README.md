@@ -49,6 +49,32 @@ Identify by stable id only — never pass emails, phone numbers, or other PII in
 
 With no `apiKey` the provider renders children with zero PostHog code paths.
 
+### Sibling mounting (dynamic import without remounting the page)
+
+If you code-split the analytics module (so disabled installs pay no bundle
+cost), do not wrap the app in the provider once the import resolves —
+swapping a wrapper in around mounted UI remounts the whole subtree. Mount it
+childless as a sibling instead; pageviews, identification, and the shared
+posthog-js singleton (which custom events capture through) all work the same:
+
+```tsx
+function Analytics({ posthogKey }: { posthogKey: string }) {
+  const [analyticsModule, setAnalyticsModule] = useState<typeof import("@activescott/analytics") | null>(null)
+  useEffect(() => {
+    if (posthogKey) {
+      void import("@activescott/analytics").then(setAnalyticsModule)
+    }
+  }, [posthogKey])
+  if (!analyticsModule) {
+    return null
+  }
+  return <analyticsModule.PostHogProvider apiKey={posthogKey} options={{ api_host: "/ph" }} />
+}
+
+// <Analytics posthogKey={key} />
+// <Outlet />
+```
+
 ### 2. Add the reverse proxy route
 
 Create `app/routes/ph.$.ts`:

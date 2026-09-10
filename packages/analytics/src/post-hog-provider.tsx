@@ -7,7 +7,11 @@ interface PostHogProviderProps {
   apiKey?: string
   options?: Partial<PostHogConfig>
   user?: { distinctId: string; properties?: Record<string, unknown> }
-  children: React.ReactNode
+  // Optional: the provider may mount childless as a sibling of the app
+  // (initializing the shared posthog-js singleton, tracking pageviews,
+  // identifying the user) so dynamically importing it later never remounts
+  // the page subtree.
+  children?: React.ReactNode
 }
 
 /**
