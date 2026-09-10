@@ -3,13 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "description": "Shared JavaScript utilities (npm workspaces monorepo)",
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "prepare": "husky"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/activescott/js-utils.git"
+    "url": "git+https://github.com/activescott/js-utils.git"
   },
   "author": "Scott Willeke",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@simple-release/core": "^2.4.0",
+    "@simple-release/github": "^2.4.0",
+    "@simple-release/npm": "^2.3.0",
+    "husky": "^9.0.0",
+    "tsx": "^4.23.1"
+  }
 }
