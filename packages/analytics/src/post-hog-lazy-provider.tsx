@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react"
+import { Suspense, lazy, useEffect, useState } from "react"
 import type { PostHogConfig } from "posthog-js"
 
 const PostHogInit = lazy(() =>
@@ -37,7 +37,17 @@ export function LazyPostHogProvider({
   options,
   user,
 }: LazyPostHogProviderProps) {
-  if (!enabled || !apiKey) {
+  // Client-only: the initialized tree pulls in posthog-js, whose react entry
+  // point Node's ESM resolver refuses (UMD-only subpath) and which assumes
+  // browser globals. Rendering it during SSR throws inside the Suspense
+  // boundary — the shell still streams, but the response status flips to 500
+  // with no log. Gating on mount keeps SSR output identical (null either
+  // way), so hydration stays clean.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  if (!enabled || !apiKey || !mounted) {
     return null
   }
   return (
