@@ -174,4 +174,32 @@ describe("createPostHogProxy", () => {
     expect(response.status).toBe(405)
     expect(calls).toHaveLength(0)
   })
+
+  it("drops X-Forwarded-For by default", async () => {
+    const calls = stubFetch(() => new Response("{}", { status: 200 }))
+    const { action } = proxy()
+    await action({
+      request: new Request("https://app.example.com/ph/e/", {
+        method: "POST",
+        headers: { "x-forwarded-for": "203.0.113.7" },
+        body: JSON.stringify({ event: "x" }),
+      }),
+    })
+    expect(new Headers(calls[0].init.headers).get("x-forwarded-for")).toBeNull()
+  })
+
+  it("forwards X-Forwarded-For unchanged when forwardIp is set", async () => {
+    const calls = stubFetch(() => new Response("{}", { status: 200 }))
+    const { action } = createPostHogProxy({ apiHost: API_HOST, forwardIp: true })
+    await action({
+      request: new Request("https://app.example.com/ph/e/", {
+        method: "POST",
+        headers: { "x-forwarded-for": "203.0.113.7, 198.51.100.3" },
+        body: JSON.stringify({ event: "x" }),
+      }),
+    })
+    expect(new Headers(calls[0].init.headers).get("x-forwarded-for")).toBe(
+      "203.0.113.7, 198.51.100.3",
+    )
+  })
 })

@@ -58,6 +58,14 @@ interface PostHogProxyOptions {
    * never pin server resources.
    */
   timeoutMs?: number
+  /**
+   * Forward the incoming `X-Forwarded-For` header unchanged so PostHog sees
+   * the client IP chain (set by your ingress, used for geoIP). Defaults to
+   * false — no IP signal leaves your infrastructure unless you opt in.
+   * Spoofing caveat: clients can prepend entries to the chain; PostHog
+   * parses it per its own rules, same as every PostHog proxy setup.
+   */
+  forwardIp?: boolean
 }
 
 /**
@@ -77,6 +85,8 @@ interface PostHogProxyOptions {
  *   your domain.
  * - Request bodies are capped and the upstream call has a timeout.
  * - Bodies are never logged or echoed back in error responses.
+ * - Client IPs are NOT forwarded by default; pass `forwardIp: true` to send
+ *   the ingress-set `X-Forwarded-For` chain upstream for geoIP.
  *
  * @example
  * ```ts
@@ -97,6 +107,7 @@ export function createPostHogProxy(options: PostHogProxyOptions): {
   const mountPath = (options.mountPath ?? DEFAULT_MOUNT_PATH).replace(/\/$/, "")
   const maxBodyBytes = options.maxBodyBytes ?? DEFAULT_MAX_BODY_BYTES
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS
+  const forwardIp = options.forwardIp ?? false
 
   async function proxyRequest(request: Request): Promise<Response> {
     if (!ALLOWED_METHODS.includes(request.method as (typeof ALLOWED_METHODS)[number])) {
@@ -133,9 +144,17 @@ export function createPostHogProxy(options: PostHogProxyOptions): {
       if (userAgent) {
         headers.set("user-agent", userAgent)
       }
-      // Deliberately NOT forwarded: Cookie, Authorization, X-Forwarded-* and
-      // everything else. IP forwarding (X-Forwarded-For vs ?ip=) is a privacy
-      // decision for the consumer to make explicitly, not a default.
+      // Opt-in only: pass the ingress-set client IP chain through for
+      // PostHog geoIP. Forwarded unchanged (never synthesized here) and never
+      // logged. See the `forwardIp` option docs for the spoofing caveat.
+      if (forwardIp) {
+        const forwardedFor = request.headers.get("x-forwarded-for")
+        if (forwardedFor) {
+          headers.set("x-forwarded-for", forwardedFor)
+        }
+      }
+      // Deliberately NOT forwarded: Cookie, Authorization, and everything
+      // else.
 
       let body: Uint8Array<ArrayBuffer> | undefined
       if (request.method !== "GET" && request.method !== "HEAD") {

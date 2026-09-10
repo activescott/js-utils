@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.1.0
+## 0.2.0
+
+- `createPostHogProxy` gains `forwardIp`: when true, the ingress-set
+  `X-Forwarded-For` chain is forwarded unchanged for PostHog geoIP. Default
+  remains false — no IP signal leaves your infrastructure unless you opt in.
 
 Initial release as `@activescott/analytics`, moved from RambleFeed's
 `@activescott/posthog-react-router` (v0.1.1).

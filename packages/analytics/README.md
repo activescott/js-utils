@@ -59,6 +59,9 @@ import { createPostHogProxy } from "@activescott/analytics/proxy"
 export const { loader, action } = createPostHogProxy({
   apiHost: "https://us.i.posthog.com",
   assetsHost: "https://us-assets.i.posthog.com",
+  // Opt in only if your privacy policy covers it: forwards the ingress-set
+  // X-Forwarded-For chain so PostHog sees client IPs for geoIP.
+  forwardIp: true,
 })
 ```
 
