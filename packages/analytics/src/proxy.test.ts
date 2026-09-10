@@ -66,6 +66,20 @@ describe("createPostHogProxy", () => {
     expect(calls[1].url).toBe(`${API_HOST}/decide/?v=3`)
   })
 
+  it("routes the ingestion API to the api host", async () => {
+    const calls = stubFetch(() => new Response("{}", { status: 200 }))
+    const { action } = proxy()
+    const response = await action({
+      request: new Request("https://app.example.com/ph/i/v0/e/", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ event: "x" }),
+      }),
+    })
+    expect(response.status).toBe(200)
+    expect(calls[0].url).toBe(`${API_HOST}/i/v0/e/`)
+  })
+
   it("answers 404 for paths outside the allowlist without calling upstream", async () => {
     const calls = stubFetch(() => new Response("{}", { status: 200 }))
     const { loader } = proxy()

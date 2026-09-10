@@ -15,8 +15,11 @@ const DEFAULT_TIMEOUT_MS = 10_000
  * First path segments (after the mount prefix) that may be proxied. Everything
  * else answers 404 so this route can never become a generic relay. Covers
  * posthog-js capture (`e`, `batch`), flags (`decide`, `flags`), session
- * replay (`s`), surveys (`surveys`), autotrack/toolbar helpers (`array`) and
- * static assets (`static`, routed to the assets host). Widen with care.
+ * replay (`s`), surveys (`surveys`), autotrack/toolbar helpers (`array`),
+ * static assets (`static`, routed to the assets host), and the `i` ingestion
+ * API — which PostHog Cloud's remote config selects as the capture endpoint
+ * for current clients, so without it every event past the first seconds 404s.
+ * Widen with care.
  */
 const ALLOWED_PREFIXES = [
   "e",
@@ -27,6 +30,7 @@ const ALLOWED_PREFIXES = [
   "surveys",
   "array",
   "static",
+  "i",
 ] as const
 
 const ALLOWED_METHODS = ["GET", "POST", "OPTIONS"] as const
