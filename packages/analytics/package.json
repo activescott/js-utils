@@ -14,6 +14,10 @@
       "types": "./dist/proxy.d.ts",
       "import": "./dist/proxy.js"
     },
+    "./lazy": {
+      "types": "./dist/lazy.d.ts",
+      "import": "./dist/lazy.js"
+    },
     "./hosts": {
       "types": "./dist/hosts.d.ts",
       "import": "./dist/hosts.js"
@@ -22,6 +26,7 @@
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
