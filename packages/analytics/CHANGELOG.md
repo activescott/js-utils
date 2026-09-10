@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.3](https://github.com/activescott/js-utils/compare/analytics@0.3.2...analytics@0.3.3) (2026-09-10)
+
+### Bug Fixes
+
+* proxy the ingestion API so post-remote-config events land ([a244bf0](https://github.com/activescott/js-utils/commit/a244bf08f8f66df3f5f78d817ef266ae39b91473))
+
 ## [0.3.2](https://github.com/activescott/js-utils/compare/analytics@0.3.1...analytics@0.3.2) (2026-09-10)
 
 ### Bug Fixes
