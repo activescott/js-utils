@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.0](https://github.com/activescott/js-utils/compare/analytics@0.2.1...analytics@0.3.0) (2026-09-10)
+
+### Features
+
+* conditional-load provider, capture hook, host utils ([4c79723](https://github.com/activescott/js-utils/commit/4c79723990ceb00bd3e20f59b690a308980318f5))
+
 ## [0.2.1](https://github.com/activescott/js-utils/compare/analytics@0.2.0...analytics@0.2.1) (2026-09-10)
 
 ### Bug Fixes
