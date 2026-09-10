@@ -16,6 +16,10 @@ interface PostHogInitProps {
  * user identification, and capture registration. Lives in its own module so
  * React.lazy splits it (and posthog-js with it) into a separate chunk —
  * mount LazyPostHogProvider, not this, which guarantees the split point.
+ *
+ * Capture is deliberately narrow: click/submit/change autocapture stays off
+ * (its element snapshots can carry user content) — consumers opt back in
+ * explicitly. Pageviews, identification, and custom events are unaffected.
  */
 export function PostHogInit({
   apiKey,
@@ -27,6 +31,7 @@ export function PostHogInit({
     <PHProvider
       apiKey={apiKey}
       options={{
+        autocapture: false,
         ...options,
         capture_pageview: false,
       }}
